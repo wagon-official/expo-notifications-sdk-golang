@@ -10,17 +10,21 @@ import (
 // ExponentPushToken is a valid Expo push token
 type ExponentPushToken string
 
+// ExponentPushToken is an invalid Expo push token
+const NilExponentPushToken = ExponentPushToken("")
+
 // ErrMalformedToken is returned if a token does not start with 'ExponentPushToken'
 var ErrMalformedToken = errors.New("token should start with ExponentPushToken")
 
 // NewExponentPushToken returns a token and may return an error if the input token is invalid
 func NewExponentPushToken(token string) (ExponentPushToken, error) {
 	if !strings.HasPrefix(token, "ExponentPushToken") {
-		return "", ErrMalformedToken
+		return NilExponentPushToken, ErrMalformedToken
 	}
 	return ExponentPushToken(token), nil
 }
 
+// UnmarshalJSON unmarshals bytes into an ExponentPushToken and may return an error if the input is invalid
 func (emptyToken *ExponentPushToken) UnmarshalJSON(bytes []byte) error {
 	var tokenString string
 	err := json.Unmarshal(bytes, &tokenString)
@@ -33,6 +37,11 @@ func (emptyToken *ExponentPushToken) UnmarshalJSON(bytes []byte) error {
 	}
 	*emptyToken = token
 	return nil
+}
+
+// IsInvalid returns true if the ExponentPushToken is invalid (does not check prefix)
+func (token *ExponentPushToken) IsInvalid() bool {
+	return *token == NilExponentPushToken
 }
 
 const (

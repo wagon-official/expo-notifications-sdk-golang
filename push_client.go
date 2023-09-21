@@ -94,7 +94,7 @@ func (c *PushClient) publishInternal(messages []PushMessage) ([]PushResponse, er
 			return nil, errors.New("no recipients")
 		}
 		for _, recipient := range message.To {
-			if recipient == "" {
+			if recipient.IsInvalid() {
 				return nil, errors.New("invalid push token")
 			}
 		}
