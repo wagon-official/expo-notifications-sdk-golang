@@ -35,8 +35,8 @@ type ClientConfig struct {
 	HTTPClient  *http.Client
 }
 
-// NewPushClient creates a new Exponent push client
-// See full API docs at https://docs.getexponent.com/versions/v13.0.0/guides/push-notifications.html#http-2-api
+// NewPushClient creates a new Expo push client
+// See full API docs at https://docs.expo.dev/push-notifications/overview/
 func NewPushClient(config *ClientConfig) *PushClient {
 	c := new(PushClient)
 	host := DefaultHost
@@ -157,7 +157,7 @@ func (c *PushClient) publishInternal(messages []PushMessage) ([]PushResponse, er
 	for _, msg := range messages {
 		for _, to := range msg.To {
 			r.Data[i].PushMessage = msg
-			r.Data[i].PushMessage.To = []ExponentPushToken{to}
+			r.Data[i].PushMessage.To = []ExpoPushToken{to}
 			i += 1
 		}
 	}

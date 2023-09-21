@@ -7,31 +7,31 @@ import (
 	"strings"
 )
 
-// ExponentPushToken is a valid Expo push token
-type ExponentPushToken string
+// ExpoPushToken is a valid Expo push token
+type ExpoPushToken string
 
-// ExponentPushToken is an invalid Expo push token
-const NilExponentPushToken = ExponentPushToken("")
+// NilExpoPushToken is an invalid Expo push token
+const NilExpoPushToken = ExpoPushToken("")
 
 // ErrMalformedToken is returned if a token does not start with 'ExponentPushToken'
 var ErrMalformedToken = errors.New("token should start with ExponentPushToken")
 
-// NewExponentPushToken returns a token and may return an error if the input token is invalid
-func NewExponentPushToken(token string) (ExponentPushToken, error) {
+// NewExpoPushToken returns a token and may return an error if the input token is invalid
+func NewExpoPushToken(token string) (ExpoPushToken, error) {
 	if !strings.HasPrefix(token, "ExponentPushToken") {
-		return NilExponentPushToken, ErrMalformedToken
+		return NilExpoPushToken, ErrMalformedToken
 	}
-	return ExponentPushToken(token), nil
+	return ExpoPushToken(token), nil
 }
 
-// UnmarshalJSON unmarshals bytes into an ExponentPushToken and may return an error if the input is invalid
-func (emptyToken *ExponentPushToken) UnmarshalJSON(bytes []byte) error {
+// UnmarshalJSON unmarshals bytes into an ExpoPushToken and may return an error if the input is invalid
+func (emptyToken *ExpoPushToken) UnmarshalJSON(bytes []byte) error {
 	var tokenString string
 	err := json.Unmarshal(bytes, &tokenString)
 	if err != nil {
 		return err
 	}
-	token, err := NewExponentPushToken(tokenString)
+	token, err := NewExpoPushToken(tokenString)
 	if err != nil {
 		return err
 	}
@@ -39,9 +39,9 @@ func (emptyToken *ExponentPushToken) UnmarshalJSON(bytes []byte) error {
 	return nil
 }
 
-// IsInvalid returns true if the ExponentPushToken is invalid (does not check prefix)
-func (token *ExponentPushToken) IsInvalid() bool {
-	return *token == NilExponentPushToken
+// IsInvalid returns true if the ExpoPushToken is invalid (does not check prefix)
+func (token *ExpoPushToken) IsInvalid() bool {
+	return *token == NilExpoPushToken
 }
 
 const (
@@ -77,16 +77,16 @@ const (
 //		ChannelID: ID of the Notification Channel through which to display this
 //	        notification on Android devices.
 type PushMessage struct {
-	To         []ExponentPushToken `json:"to"`
-	Body       string              `json:"body"`
-	Data       map[string]string   `json:"data,omitempty"`
-	Sound      string              `json:"sound,omitempty"`
-	Title      string              `json:"title,omitempty"`
-	TTLSeconds int                 `json:"ttl,omitempty"`
-	Expiration int64               `json:"expiration,omitempty"`
-	Priority   string              `json:"priority,omitempty"`
-	Badge      int                 `json:"badge,omitempty"`
-	ChannelID  string              `json:"channelId,omitempty"`
+	To         []ExpoPushToken   `json:"to"`
+	Body       string            `json:"body"`
+	Data       map[string]string `json:"data,omitempty"`
+	Sound      string            `json:"sound,omitempty"`
+	Title      string            `json:"title,omitempty"`
+	TTLSeconds int               `json:"ttl,omitempty"`
+	Expiration int64             `json:"expiration,omitempty"`
+	Priority   string            `json:"priority,omitempty"`
+	Badge      int               `json:"badge,omitempty"`
+	ChannelID  string            `json:"channelId,omitempty"`
 }
 
 // Response is the HTTP response returned from an Expo publish HTTP request

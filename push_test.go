@@ -7,7 +7,7 @@ import (
 )
 
 type Example struct {
-	Token ExponentPushToken `json:"token"`
+	Token ExpoPushToken `json:"token"`
 }
 
 func TestUnmarshallingExponentPushNotification(t *testing.T) {

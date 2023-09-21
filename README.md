@@ -20,7 +20,7 @@ import (
 
 func main() {
     // To check the token is valid
-    pushToken, err := expo.NewExponentPushToken("ExponentPushToken[xxxxxxxxxxxxxxxxxxxxxx]")
+    pushToken, err := expo.NewExpoPushToken("ExponentPushToken[xxxxxxxxxxxxxxxxxxxxxx]")
     if err != nil {
         panic(err)
     }
@@ -31,7 +31,7 @@ func main() {
     // Publish message
     responses, err := client.Publish(
         &expo.PushMessage{
-            To: []expo.ExponentPushToken{pushToken},
+            To: []expo.ExpoPushToken{pushToken},
             Body: "This is a test notification",
             Data: map[string]interface{}{"withSome": "data"},
             Sound: "default",
