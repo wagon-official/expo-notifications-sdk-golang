@@ -1,8 +1,34 @@
 package expo
 
 import (
+	"encoding/json"
+	"strings"
 	"testing"
 )
+
+type Example struct {
+	Token ExponentPushToken `json:"token"`
+}
+
+func TestUnmarshallingExponentPushNotification(t *testing.T) {
+	jsonString := `{ "token" : "ExponentPushToken[xxxxxxxxxxxxxxxxxxxxxx]" }`
+	reader := strings.NewReader(jsonString)
+	var example Example
+	err := json.NewDecoder(reader).Decode(&example)
+	if err != nil {
+		t.Error(err)
+	}
+}
+
+func TestUnmarshallingFailExponentPushNotification(t *testing.T) {
+	jsonString := `{ "token" : "BadToken" }`
+	reader := strings.NewReader(jsonString)
+	var example Example
+	err := json.NewDecoder(reader).Decode(&example)
+	if err != ErrMalformedToken {
+		t.FailNow()
+	}
+}
 
 func TestValidateResponseErrorStatus(t *testing.T) {
 	response := &PushResponse{

@@ -1,6 +1,7 @@
 package expo
 
 import (
+	"encoding/json"
 	"errors"
 	"net/http"
 	"strings"
@@ -18,6 +19,20 @@ func NewExponentPushToken(token string) (ExponentPushToken, error) {
 		return "", ErrMalformedToken
 	}
 	return ExponentPushToken(token), nil
+}
+
+func (emptyToken *ExponentPushToken) UnmarshalJSON(bytes []byte) error {
+	var tokenString string
+	err := json.Unmarshal(bytes, &tokenString)
+	if err != nil {
+		return err
+	}
+	token, err := NewExponentPushToken(tokenString)
+	if err != nil {
+		return err
+	}
+	*emptyToken = token
+	return nil
 }
 
 const (
