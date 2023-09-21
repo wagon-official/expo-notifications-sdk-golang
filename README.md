@@ -1,6 +1,6 @@
 # expo-notifications-sdk-go
 
-[![GitHub tag](https://img.shields.io/github/tag/wagon-official/expo-notifications-sdk-golang?include_prereleases=&sort=semver&color=blue)](https://github.com/wagon-official/expo-notifications-sdk-golang/releases/)
+[![GitHub tag](https://img.shields.io/github/tag/wagon-official/expo-notifications-sdk-golang?include_prereleases=&sort=semver&color=blue)](https://github.com/wagon-official/expo-notifications-sdk-golang/tags/)
 [![License](https://img.shields.io/badge/License-MIT-blue)](#license)
 [![Go Reference](https://pkg.go.dev/badge/github.com/wagon-official/expo-notifications-sdk-golang.svg)](https://pkg.go.dev/github.com/wagon-official/expo-notifications-sdk-golang)
 
