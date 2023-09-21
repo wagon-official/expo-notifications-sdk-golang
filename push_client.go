@@ -91,11 +91,11 @@ func (c *PushClient) publishInternal(messages []PushMessage) ([]PushResponse, er
 	// Validate the messages
 	for _, message := range messages {
 		if len(message.To) == 0 {
-			return nil, errors.New("No recipients")
+			return nil, errors.New("no recipients")
 		}
 		for _, recipient := range message.To {
 			if recipient == "" {
-				return nil, errors.New("Invalid push token")
+				return nil, errors.New("invalid push token")
 			}
 		}
 		// There will be as many receipts as there is total recipients for each message
@@ -168,5 +168,5 @@ func checkStatus(resp *http.Response) error {
 	if resp.StatusCode >= 200 && resp.StatusCode <= 299 {
 		return nil
 	}
-	return fmt.Errorf("Invalid response (%d %s)", resp.StatusCode, resp.Status)
+	return fmt.Errorf("invalid response (%d %s)", resp.StatusCode, resp.Status)
 }
